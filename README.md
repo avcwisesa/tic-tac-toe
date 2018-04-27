@@ -6,7 +6,7 @@ An AI-based application that could play modified version of tic-tac-toe which wi
 The purpose of this application is to be a micro learning sample in creating an agent that could do a general game playing by using logic programming paradigm. The agent created is expected could play the game optimally so the output generated from the play only win or draw, which are the nature of the game rules.
 
 ## Scope
-The application is limited to the least possible of the game by limiting the board size exactly to 5 x 5. During the first development cycle, the interaction will be made as simple as it could be but still give the user a user-friendly interface by using command line interface
+The application is limited to the least possibility of the game by limiting the board size exactly to 5 x 5. During the first development cycle, the interaction will be made as simple as it could be but still give the user a user-friendly interface by using command line interface
 
 ## Technology
 * SWI-Prolog
