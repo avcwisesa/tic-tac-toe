@@ -12,6 +12,6 @@ The application is limited to the least possible of the game by limiting the boa
 * SWI-Prolog
 
 ## Developers:
-* Avi**cenna** Wisesa</br>
-* **Rafi**ano R. Rubiantoro</br>
+* **Avicenna** Wisesa</br>
+* **Rafiano** R. Rubiantoro</br>
 * **Wisnu** Teguh Wicansono</br>
