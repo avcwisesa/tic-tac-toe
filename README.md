@@ -5,6 +5,13 @@ An AI-based application that could play modified version of tic-tac-toe which wi
 
 The purpose of this application is to be a micro learning sample in creating an agent that could do a general game playing by using logic programming paradigm. The agent created is expected could play the game optimally so the output generated from the play only win or draw, which are the nature of the game rules.
 
+---
+\ | *A* | *B* | *C* | *D*
+*1* | A1 | B1 | C1 | D1
+*2* | A2 | B2 | C2 | D2
+*3* | A3 | B3 | C3 | D3
+*4* | A4 | B4 | C4 | D4
+
 ## Scope
 The application is limited to the least possibility of the game by limiting the board size exactly to 5 x 5. During the first development cycle, the interaction will be made as simple as it could be but still give the user a user-friendly interface by using command line interface
 
