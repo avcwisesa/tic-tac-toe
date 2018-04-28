@@ -1,1 +1,1 @@
-:- [move, win_contition].
+:- [move, win_condition].
