@@ -1,4 +1,4 @@
-:- [move, win_condition, count_solutions].
+:- [move, win_condition, ai].
 
 start() :- 
 	write('Tic Tac Toe!\n'),
@@ -16,17 +16,22 @@ turn(player, Board) :-
 	flush_output(),
 	read(Pos),
 	move(o, Pos, Board, New_Board),
+	%% assert(filled(Pos)),
 	print_board(New_Board),
 	check_win(o, New_Board, player),
 	turn(ai, New_Board).
 
 turn(ai, Board) :-
 	write('AI is thinking...'),
-	dash_to_underscore(Board, TempBoard),
-	count_solutions(win(x, TempBoard), N),
-	% Find minimum of all count_solutions
 	flush_output(),
-	turn(player, Board).
+	dash_to_underscore(Board, TempBoard),
+	think(TempBoard, Pos),
+	move(x, Pos, Board, New_Board),
+	%% assert(filled(Pos)),
+	print_board(New_Board),
+	check_win(x, New_Board, player),
+	flush_output(),
+	turn(player, New_Board).
 
 dash_to_underscore([], _).
 
