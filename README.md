@@ -20,6 +20,9 @@ The application is limited to the least possibility of the game by limiting the 
 ## Technology
 * SWI-Prolog
 
+## How-To
+To use this program, execute swipl inside the directory where the code is. Compile the main program by run ```[main].``` command. The program will prompt iteratively user to take turn by telling the program which cell to put the symbol. If there's a winner (player or AI), the program will tell who's winning and the program will be aborted.
+
 ## Developers
 * **Avicenna** Wisesa</br>
 * **Rafiano** R. Rubiantoro</br>
