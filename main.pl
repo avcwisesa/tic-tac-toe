@@ -1,4 +1,4 @@
-:- [move, win_condition].
+:- [move, win_condition, count_solutions].
 
 start() :- 
 	write('Tic Tac Toe!\n'),
@@ -22,7 +22,24 @@ turn(player, Board) :-
 
 turn(ai, Board) :-
 	write('AI is thinking...'),
+	check_strip(Board, TempBoard),
+	count_solutions(win(x, TempBoard), N),
+	% Find minimum of all count_solutions
+	flush_output(),
 	turn(player, Board).
+
+dash_to_underscore([], _).
+
+dash_to_underscore([H|T], TempBoard) :-
+	to_dont_care([H|T], TempBoard), check_strip(T, TempBoard).
+
+to_dont_care([-|T], TempBoard) :-
+	append([TempBoard], _, NewBoard),
+	check_strip(T, NewBoard), !.
+
+to_dont_care([H|T], TempBoard) :-
+	append([TempBoard], H, NewBoard), 
+	check_strip(T, NewBoard).
 
 print_board(Board) :-
 	Board = [A1,A2,A3,A4,A5,B1,B2,B3,B4,B5,C1,C2,C3,C4,C5,D1,D2,D3,D4,D5,E1,E2,E3,E4,E5],
