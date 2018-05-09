@@ -20,7 +20,7 @@ The application is limited to the least possibility of the game by limiting the 
 ## Technology
 * SWI-Prolog
 
-## Developers:
+## Developers
 * **Avicenna** Wisesa</br>
 * **Rafiano** R. Rubiantoro</br>
 * **Wisnu** Teguh Wicansono</br>
