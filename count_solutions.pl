@@ -5,8 +5,8 @@ count_solutions(Goal, N) :-
     repeat,
     (   
         call(Goal),
-        retract(counter(current)),
-        Updated is current + 1,
+        retract(counter(Current)),
+        Updated is Current + 1,
         assert(counter(Updated)),
         fail;
         retract(counter(T))
