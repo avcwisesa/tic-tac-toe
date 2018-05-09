@@ -11,16 +11,17 @@ start() :-
 	turn(player, Board).
 
 turn(player, Board) :- 
-	write('It is your turn! '),
+	write('It is your turn!\n'),
 	write('Input move(a1, b3, etc. end with ".") : '),
+	flush_output(),
 	read(Pos),
 	move(o, Pos, Board, New_Board),
 	print_board(New_Board),
-	% check winning
+	check_win(o, New_Board, player),
 	turn(ai, New_Board).
 
 turn(ai, Board) :-
-	write('AI is thingking...'),
+	write('AI is thinking...'),
 	turn(player, Board).
 
 print_board(Board) :-
