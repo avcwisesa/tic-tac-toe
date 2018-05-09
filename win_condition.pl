@@ -27,5 +27,7 @@ win(X,[_,_,_,_,_,_,X,_,_,_,_,_,X,_,_,_,_,_,X,_,_,_,_,_,X]).
 win(X,[_,_,_,_,_,X,_,_,_,_,_,X,_,_,_,_,_,X,_,_,_,_,_,X,_]).
 win(X,[_,X,_,_,_,_,_,X,_,_,_,_,_,X,_,_,_,_,_,X,_,_,_,_,_]).
 
-check_win(X, L) :-
-    win(X, L), write("You Win!"), !.
+check_win(X, L, Player) :-
+    win(X, L),
+    string_concat(Player, " Win!", Msg),
+    write(Msg), !.
