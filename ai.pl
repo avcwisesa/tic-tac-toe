@@ -18,11 +18,8 @@ test_all_moves(Board) :-
 	\+ filled(Move),
 	move(x, Move, Board, New_Board),
 	count_solutions(win(o, New_Board), N),
-	format(N),
-	write('\n'),
 	assert(counted(Move, N)),
 	fail.
-
 to_winning(Sym, _, Board, 0) :- win(Sym, Board).
 to_winning(Sym, _, Board, 0) :- !, fail.
 
