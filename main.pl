@@ -8,6 +8,7 @@ start() :-
 	write('AI 	: x\n\n'),
 	Board = ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'],
 	print_board(Board),
+	retractall(filled(X)),
 	turn(player, Board).
 
 turn(player, Board) :- 
@@ -16,7 +17,7 @@ turn(player, Board) :-
 	flush_output(),
 	read(Pos),
 	move(o, Pos, Board, New_Board),
-	%% assert(filled(Pos)),
+	assert(filled(Pos)),
 	print_board(New_Board),
 	check_win(o, New_Board, player),
 	turn(ai, New_Board).
@@ -24,13 +25,27 @@ turn(player, Board) :-
 turn(ai, Board) :-
 	write('AI is thinking...'),
 	flush_output(),
-	think(Board, Pos),
+	dash_to_underscore(Board, TempBoard),
+	think(TempBoard, Pos),
 	move(x, Pos, Board, New_Board),
-	%% assert(filled(Pos)),
+	assert(filled(Pos)),
 	print_board(New_Board),
 	check_win(x, New_Board, ai),
 	flush_output(),
 	turn(player, New_Board).
+
+dash_to_underscore([], _).
+
+dash_to_underscore([H|T], TempBoard) :-
+	to_dont_care([H|T], TempBoard), dash_to_underscore(T, TempBoard).
+
+to_dont_care([-|T], TempBoard) :-
+	append([TempBoard], _, NewBoard),
+	dash_to_underscore(T, NewBoard), !.
+
+to_dont_care([H|T], TempBoard) :-
+	append([TempBoard], H, NewBoard), 
+	dash_to_underscore(T, NewBoard).
 
 print_board(Board) :-
 	Board = [A1,A2,A3,A4,A5,B1,B2,B3,B4,B5,C1,C2,C3,C4,C5,D1,D2,D3,D4,D5,E1,E2,E3,E4,E5],
