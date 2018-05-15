@@ -22,3 +22,17 @@ test_all_moves(Board) :-
 	write('\n'),
 	assert(counted(Move, N)),
 	fail.
+
+to_winning(Sym, _, Board, 0) :- win(Sym, Board).
+to_winning(Sym, _, Board, 0) :- !, fail.
+
+to_winning(Sym, Filled, Board, N) :- 
+	moves(Moves),
+	member(Move, Moves),
+	\+ member(Move, Filled),
+	\+ filled(Move),
+	append([Move], Filled, New_Filled),
+	move(Sym, Move, Board, New_Board),
+	M is N - 1,
+	to_winning(Sym, New_Filled, New_Board, M).
+	
