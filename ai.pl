@@ -16,6 +16,30 @@ think(2, Board, Move) :-
 	format('AI picked ~a\n',[Move]).
 
 think(3, Board, Move) :-
+	to_winning(x, [], Board, 1),
+	moves(Moves),
+	member(Move, Moves),
+	\+ filled(Move),
+	move(x, Move, Board, New_Board),
+	to_winning(x, [Move], New_Board, 0),
+	% list best options
+	% print picked move
+	write('opt 0\n'),
+	format('AI picked ~a\n',[Move]).
+
+think(3, Board, Move) :-
+	to_winning(o, [], Board, 1),
+	moves(Moves),
+	member(Move, Moves),
+	\+ filled(Move),
+	move(x, Move, Board, New_Board),
+	\+ to_winning(o, [Move], New_Board, 1),
+	% list best options
+	% print picked move
+	write('opt 1\n'),
+	format('AI picked ~a\n',[Move]).
+
+think(3, Board, Move) :-
 	moves(Moves),
 	member(Move, Moves),
 	\+ filled(Move),
@@ -25,23 +49,30 @@ think(3, Board, Move) :-
 	\+ check_enemy_win(Board),
 	\+ bad_move(Move),
 	% list best options
+	bagof(X, filled(X), [Last|_]),
+	corner(Last, Move),
 	% print picked move
+	write('opt 1.8\n'),
 	format('AI picked ~a\n',[Move]).
 
-
-think(3, Board, Move) :- 
-	think(2, Board, Move).
-
-check_enemy_win(Board) :-
+think(3, Board, Move) :-
 	moves(Moves),
 	member(Move, Moves),
 	\+ filled(Move),
-	move(x, Move, Board, New_Board),
-	% format('checked: ~a\n',[Move]),
-	% flush_output(),
-	to_winning(o, [Move], New_Board, 1),
-	assert(bad_move(Move)),
-	fail.
+	% retract memo
+	retractall(bad_move(X)),
+	% check impending doom
+	\+ check_enemy_win(Board),
+	\+ bad_move(Move),
+	% list best options
+
+	% print picked move
+	write('opt 2\n'),
+	format('AI picked ~a\n',[Move]).
+
+think(3, Board, Move) :- 
+	write('opt 3\n'),
+	think(2, Board, Move).
 
 check_enemy_win(Board) :-
 	moves(Moves),
