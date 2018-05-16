@@ -20,6 +20,7 @@ test_all_moves(Board) :-
 	count_solutions(win(o, New_Board), N),
 	assert(counted(Move, N)),
 	fail.
+	
 to_winning(Sym, _, Board, 0) :- win(Sym, Board).
 to_winning(Sym, _, Board, 0) :- !, fail.
 
