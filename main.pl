@@ -17,7 +17,7 @@ turn(player, Level, Board) :-
 	flush_output(),
 	read(Pos),
 	move(o, Pos, Board, New_Board),
-	assert(filled(Pos)),
+	asserta(filled(Pos)),
 	print_board(New_Board),
 	check_win(o, New_Board, player),
 	turn(ai, Level, New_Board).
@@ -27,7 +27,7 @@ turn(ai, Level, Board) :-
 	flush_output(),
 	think(Level, Board, Pos),
 	move(x, Pos, Board, New_Board),
-	assert(filled(Pos)),
+	asserta(filled(Pos)),
 	bagof(X, filled(X), Bag),
 	printList(Bag),
 	print_board(New_Board),

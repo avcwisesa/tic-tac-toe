@@ -49,6 +49,23 @@ think(3, Board, Move) :-
 	\+ check_enemy_win(Board),
 	\+ bad_move(Move),
 	% list best options
+	bagof(X, filled(X), [Last|_]),
+	corner(Last, Move),
+	% print picked move
+	write('opt 1.8\n'),
+	format('AI picked ~a\n',[Move]).
+
+think(3, Board, Move) :-
+	moves(Moves),
+	member(Move, Moves),
+	\+ filled(Move),
+	% retract memo
+	retractall(bad_move(X)),
+	% check impending doom
+	\+ check_enemy_win(Board),
+	\+ bad_move(Move),
+	% list best options
+
 	% print picked move
 	write('opt 2\n'),
 	format('AI picked ~a\n',[Move]).
