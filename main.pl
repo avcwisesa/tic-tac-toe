@@ -1,6 +1,6 @@
 :- [move, win_condition, ai].
 
-start() :- 
+start(Level) :- 
 	write('Tic Tac Toe!\n'),
 	write('The player who succeeds in placing three of their marks in a\n'),
 	write('horizontal, vertical, or diagonal row wins the game.\n\n'),
@@ -9,9 +9,9 @@ start() :-
 	Board = ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'],
 	print_board(Board),
 	retractall(filled(X)),
-	turn(player, Board).
+	turn(player, Level, Board).
 
-turn(player, Board) :- 
+turn(player, Level, Board) :- 
 	write('It is your turn!\n'),
 	write('Input move(a1, b3, etc. end with ".") : '),
 	flush_output(),
@@ -20,19 +20,19 @@ turn(player, Board) :-
 	assert(filled(Pos)),
 	print_board(New_Board),
 	check_win(o, New_Board, player),
-	turn(ai, New_Board).
+	turn(ai, Level, New_Board).
 
-turn(ai, Board) :-
+turn(ai, Level, Board) :-
 	write('AI is thinking...'),
 	flush_output(),
 	dash_to_underscore(Board, TempBoard),
-	think(TempBoard, Pos),
+	think(Level, TempBoard, Pos),
 	move(x, Pos, Board, New_Board),
 	assert(filled(Pos)),
 	print_board(New_Board),
 	check_win(x, New_Board, ai),
 	flush_output(),
-	turn(player, New_Board).
+	turn(player, Level, New_Board).
 
 dash_to_underscore([], []).
 
