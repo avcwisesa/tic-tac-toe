@@ -29,6 +29,7 @@ turn(ai, Level, Board) :-
 	move(x, Pos, Board, New_Board),
 	asserta(filled(Pos)),
 	bagof(X, filled(X), Bag),
+	write('Filled: '), 
 	printList(Bag),
 	print_board(New_Board),
 	check_win(x, New_Board, ai),
@@ -38,7 +39,7 @@ turn(ai, Level, Board) :-
 printList([]).
 
 printList([H|T]) :-
-	write(H),
+	format('~a ',[H]),
 	printList(T).
 
 print_board(Board) :-

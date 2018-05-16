@@ -40,6 +40,18 @@ think(3, Board, Move) :-
 	format('AI picked ~a\n',[Move]).
 
 think(3, Board, Move) :-
+	to_trap(o, [], Board, 1),
+	moves(Moves),
+	member(Move, Moves),
+	\+ filled(Move),
+	move(x, Move, Board, New_Board),
+	\+ to_trap(o, [Move], New_Board, 1),
+	% list best options
+	% print picked move
+	write('opt 1.5\n'),
+	format('AI picked ~a\n',[Move]).
+
+think(3, Board, Move) :-
 	moves(Moves),
 	member(Move, Moves),
 	\+ filled(Move),
@@ -119,3 +131,15 @@ to_winning(Sym, Filled, Board, N) :-
 	M is N - 1,
 	to_winning(Sym, New_Filled, New_Board, M).
 	
+to_trap(Sym, _, Board, 0) :- trap(Sym, Board).
+to_trap(Sym, _, Board, 0) :- !, fail.
+
+to_trap(Sym, Filled, Board, N) :- 
+	moves(Moves),
+	member(Move, Moves),
+	\+ member(Move, Filled),
+	\+ filled(Move),
+	append([Move], Filled, New_Filled),
+	move(Sym, Move, Board, New_Board),
+	M is N - 1,
+	to_trap(Sym, New_Filled, New_Board, M).
