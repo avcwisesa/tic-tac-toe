@@ -1,6 +1,6 @@
-:- [move, count_solutions].
+:- [move, count_solutions, corner].
 
-moves([a1,a2,a3,a4,a5,b1,b2,b3,b4,b5,c1,c2,c3,c4,c5,d1,d2,d3,d4,d5,e1,e2,e3,e4,e5]).
+moves([c3,b2,b4,d2,d4,c2,b3,c4,d3,a1,a5,e1,e5,b1,d1,e2,e4,d5,b5,a4,a2,c1,a3,c5,e3]).
 
 think(1, Board, Move) :- 
 	moves(Moves),
