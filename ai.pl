@@ -14,16 +14,49 @@ think(2, Board, Move) :-
 	search_min(Move),
 	format('AI picked ~a\n',[Move]).
 
+think(3, Board, Move) :-
+	moves(Moves),
+	member(Move, Moves),
+	\+ filled(Move),
+	% retract memo
+	retractall(bad_move(X)),
+	% check impending doom
+	\+ check_enemy_win(Board),
+	\+ bad_move(Move),
+	% list best options
+	% print picked move
+	format('AI picked ~a\n',[Move]).
+
+check_enemy_win(Board) :-
+	moves(Moves),
+	member(Move, Moves),
+	\+ filled(Move),
+	move(x, Move, Board, New_Board),
+	format('checked: ~a\n',[Move]),
+	flush_output(),
+	to_winning(o, [Move], New_Board, 2),
+	assert(bad_move(Move)),
+	fail.
+
 search_min(Pos1) :-
 	counted(Pos1, Val1),
 	forall(counted(Pos2, Val2), (Val2 < Val1 -> fail; true)).
+
+dash_to_underscore([], []).
+
+dash_to_underscore([-|T], [_|New_T]) :-
+	dash_to_underscore(T, New_T).
+
+dash_to_underscore([H|T], [H|New_T]) :-
+	dash_to_underscore(T, New_T).
 
 test_all_moves(Board) :-
 	moves(Moves),
 	member(Move, Moves),
 	\+ filled(Move),
 	move(x, Move, Board, New_Board),
-	count_solutions(win(o, New_Board), N),
+	dash_to_underscore(New_Board, TempBoard),
+	count_solutions(win(o, TempBoard), N),
 	assert(counted(Move, N)),
 	fail.
 
