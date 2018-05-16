@@ -10,7 +10,8 @@ think(1, Board, Move) :-
 
 think(2, Board, Move) :- 
 	retractall(counted(X,Y)),
-	\+ test_all_moves(Board),
+	dash_to_underscore(Board, TempBoard),
+	\+ test_all_moves(TempBoard),
 	search_min(Move),
 	format('AI picked ~a\n',[Move]).
 
@@ -27,13 +28,28 @@ think(3, Board, Move) :-
 	% print picked move
 	format('AI picked ~a\n',[Move]).
 
+
+think(3, Board, Move) :- 
+	think(2, Board, Move).
+
 check_enemy_win(Board) :-
 	moves(Moves),
 	member(Move, Moves),
 	\+ filled(Move),
 	move(x, Move, Board, New_Board),
-	format('checked: ~a\n',[Move]),
-	flush_output(),
+	% format('checked: ~a\n',[Move]),
+	% flush_output(),
+	to_winning(o, [Move], New_Board, 1),
+	assert(bad_move(Move)),
+	fail.
+
+check_enemy_win(Board) :-
+	moves(Moves),
+	member(Move, Moves),
+	\+ filled(Move),
+	move(x, Move, Board, New_Board),
+	% format('checked: ~a\n',[Move]),
+	% flush_output(),
 	to_winning(o, [Move], New_Board, 2),
 	assert(bad_move(Move)),
 	fail.
@@ -55,8 +71,7 @@ test_all_moves(Board) :-
 	member(Move, Moves),
 	\+ filled(Move),
 	move(x, Move, Board, New_Board),
-	dash_to_underscore(New_Board, TempBoard),
-	count_solutions(win(o, TempBoard), N),
+	count_solutions(win(o, New_Board), N),
 	assert(counted(Move, N)),
 	fail.
 
