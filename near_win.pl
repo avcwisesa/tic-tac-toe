@@ -44,4 +44,5 @@ near_win(X,[_,_,_,_,_,_,_,_,X,_,_,_,X,_,_,_,X,_,_,_,_,_,_,_,_]).
 near_win(X,[_,_,_,_,X,_,_,_,X,_,_,_,X,_,_,_,_,_,_,_,_,_,_,_,_]).
 
 check_near_win(X, L) :-
-    near_win(X, L).
+    near_win(X, L),
+    assert(memo(L)).
