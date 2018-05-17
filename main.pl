@@ -8,7 +8,7 @@ start(Level) :-
 	write('AI 	: x\n\n'),
 	Board = ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'],
 	print_board(Board),
-	retractall(filled(X)),
+	retractall(filled(_)),
 	turn(player, Level, Board).
 
 turn(player, Level, Board) :- 
