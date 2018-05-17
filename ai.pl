@@ -161,3 +161,12 @@ to_trap(Sym, Filled, Board, N) :-
 	M is N - 1,
 	to_trap(Sym, New_Filled, New_Board, M).
 
+ongoing() :-
+	moves(Moves),
+	member(Move, Moves),
+	\+ filled(Move).
+
+ongoing() :-
+	write('Game ended in draw!\n'),
+	flush_output(),
+	abort().

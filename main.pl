@@ -1,6 +1,6 @@
 :- [move, win_condition, ai].
 
-start(Level) :- 
+start(Level, Starting) :- 
 	write('Tic Tac Toe!\n'),
 	write('The player who succeeds in placing three of their marks in a\n'),
 	write('horizontal, vertical, or diagonal row wins the game.\n\n'),
@@ -9,7 +9,7 @@ start(Level) :-
 	Board = ['-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-'],
 	print_board(Board),
 	retractall(filled(_)),
-	turn(player, Level, Board).
+	turn(Starting, Level, Board).
 
 turn(player, Level, Board) :- 
 	write('It is your turn!\n'),
@@ -20,6 +20,7 @@ turn(player, Level, Board) :-
 	asserta(filled(Pos)),
 	print_board(New_Board),
 	check_win(o, New_Board, player),
+	ongoing(),
 	turn(ai, Level, New_Board).
 
 turn(ai, Level, Board) :-
@@ -33,6 +34,7 @@ turn(ai, Level, Board) :-
 	printList(Bag),
 	print_board(New_Board),
 	check_win(x, New_Board, ai),
+	ongoing(),
 	flush_output(),
 	turn(player, Level, New_Board).
 
