@@ -1,4 +1,4 @@
-:- [move, count_solutions, corner].
+:- [move, count_solutions, corner, anti_trap].
 
 moves([c3,b2,b4,d2,d4,c2,b3,c4,d3,a1,a5,e1,e5,b1,d1,e2,e4,d5,b5,a4,a2,c1,a3,c5,e3]).
 
@@ -41,15 +41,10 @@ think(3, Board, Move) :-
 
 think(3, Board, Move) :-
 	to_trap(o, [], Board, 1),
-	moves(Moves),
-	member(Move, Moves),
-	\+ filled(Move),
-	move(x, Move, Board, New_Board),
-	\+ to_trap(o, [Move], New_Board, 1),
 	% list best options
 	% print picked move
 	write('opt 1.5\n'),
-	format('AI picked ~a\n',[Move]).
+	think(1, Board, Move).
 
 think(3, Board, Move) :-
 	moves(Moves),
@@ -131,7 +126,7 @@ to_winning(Sym, Filled, Board, N) :-
 	M is N - 1,
 	to_winning(Sym, New_Filled, New_Board, M).
 	
-to_trap(Sym, _, Board, 0) :- trap(Sym, Board).
+to_trap(Sym, _, Board, 0) :- anti_trap(Sym, Board).
 to_trap(Sym, _, Board, 0) :- !, fail.
 
 to_trap(Sym, Filled, Board, N) :- 
